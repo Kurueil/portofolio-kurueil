@@ -140,12 +140,12 @@ export default function Home() {
                   sequence={["Kurueil",5000,"AnggaP",5000]}
                   wrapper="span"
                   speed={10}
-                  className="text-purple-500 font-medium"
+                  className="text-red-500 font-medium"
                   repeat={Infinity}
                   cursor={false}
                 />
               </span>
-              <span className="absolute left-0 top-1/2 w-full h-2 bg-purple-300 opacity-0 blur-sm rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
+              <span className="absolute left-0 top-1/2 w-full h-2 bg-red-400 opacity-0 blur-sm rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
             </a>
           </div>
 
@@ -164,38 +164,38 @@ export default function Home() {
               <li>
                 <a href="#about" className="relative group text-sm lg:text-[1.3rem]">
                   <span className="relative z-10">About</span>
-                  <span className="absolute left-0 top-1/2 w-full h-2 bg-purple-300 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
+                  <span className="absolute left-0 top-1/2 w-full h-2 bg-red-400 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
                 </a>
               </li>
               <li>
                 <a href="#skills" className="relative group text-sm lg:text-[1.3rem]">
                   <span className="relative z-10">Skills</span>
-                  <span className="absolute left-0 top-1/2 w-full h-2 bg-purple-300 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
+                  <span className="absolute left-0 top-1/2 w-full h-2 bg-red-400 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
                 </a>
               </li>
               <li>
                 <a href="#projects" className="relative group text-sm lg:text-[1.3rem]">
                   <span className="relative z-10">Projects</span>
-                  <span className="absolute left-0 top-1/2 w-full h-2 bg-purple-300 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
+                  <span className="absolute left-0 top-1/2 w-full h-2 bg-red-400 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
                 </a>
               </li>
               <li>
                 <a href="#contact" className="relative group text-sm lg:text-[1.3rem]">
                   <span className="relative z-10">Contact</span>
-                  <span className="absolute left-0 top-1/2 w-full h-2 bg-purple-300 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
+                  <span className="absolute left-0 top-1/2 w-full h-2 bg-red-400 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
                 </a>
               </li>
               <li>
                 <a href="https://drive.google.com/uc?export=download&id=1ofqczf9pB7TsG_BW7PvSp7HstdH20hBk" className="relative group text-sm lg:text-[1.3rem]">
                   <span className="relative z-10">CV</span>
-                  <span className="absolute left-0 top-1/2 w-full h-2 bg-purple-500 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
+                  <span className="absolute left-0 top-1/2 w-full h-2 bg-red-500 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
                 </a>
               </li>
                <li>
                   <button
                     onClick={toggleTheme}
-                    className="cursor-pointer group relative flex items-center justify-center w-10 h-10 rounded-full border border-purple-500 transition-all duration-300
-                              dark:bg-purple-950/10 hover:shadow-[0_0_10px_rgba(128,0,255,0.5)] text-purple-700 dark:text-white"
+                    className="cursor-pointer group relative flex items-center justify-center w-10 h-10 rounded-full border border-red-500 transition-all duration-300
+                              dark:bg-red-950/10 hover:shadow-[0_0_10px_rgba(220,38,38,0.5)] text-red-700 dark:text-white"
                   >
                     {currentTheme === 'dark' ? (
                       <FiSun size={20} className="transition-transform duration-300 group-hover:scale-110" />
@@ -239,8 +239,8 @@ export default function Home() {
                 <li>
                   <button
                     onClick={toggleTheme}
-                    className="cursor-pointer group relative flex items-center justify-center w-10 h-10 rounded-full border border-purple-500 transition-all duration-300
-                              dark:bg-purple-950/10 hover:shadow-[0_0_10px_rgba(128,0,255,0.5)] text-purple-700 dark:text-white"
+                    className="cursor-pointer group relative flex items-center justify-center w-10 h-10 rounded-full border border-red-500 transition-all duration-300
+                              dark:bg-red-950/10 hover:shadow-[0_0_10px_rgba(220,38,38,0.5)] text-red-700 dark:text-white"
                   >
                     {currentTheme === 'dark' ? (
                       <FiSun size={20} className="transition-transform duration-300 group-hover:scale-110" />
@@ -262,7 +262,7 @@ export default function Home() {
             <div className="flex flex-col text-center lg:text-left order-2 lg:order-1 animate__animated animate__fadeInLeft">
               <h1 className="text-lg md:text-xl lg:text-2xl text-gray-400">Hello!, I am</h1>
               <h1 className="text-2xl md:text-3xl lg:text-4xl my-1">Angga Pradita</h1>
-              <div className="text-2xl md:text-4xl lg:text-6xl font-bold my-2 bg-gradient-to-r from-purple-500 to-purple-300 bg-clip-text text-transparent">
+              <div className="text-2xl md:text-4xl lg:text-6xl font-bold my-2 bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">
                 <TypeAnimation
                   sequence={[
                     "I'm Web Developer",
@@ -270,14 +270,6 @@ export default function Home() {
                     "I'm UI/UX Designer",
                     1000,
                     "I'm Kurumi Husband",
-                    1000,
-                    "I'm Alya Husband",
-                    1000,
-                    "I'm Emilia Husband",
-                    1000,
-                    "I'm Mahiru Husband",
-                    1000,
-                    "I'm Saika Husband",
                     1000,
                   ]}
                   wrapper="span"
@@ -292,7 +284,7 @@ export default function Home() {
               </p>
               <a
                 href="https://drive.google.com/uc?export=download&id=1ofqczf9pB7TsG_BW7PvSp7HstdH20hBk"
-                className="self-center lg:self-start border border-purple-700 rounded px-6 py-3 hover:bg-purple-950/20 transition mt-4 text-lg md:text-xl cursor-pointer inline-block text-center"
+                className="self-center lg:self-start border border-red-600 rounded px-6 py-3 hover:bg-red-950/20 transition mt-4 text-lg md:text-xl cursor-pointer inline-block text-center"
               >
                 Get my CV
               </a>
@@ -300,11 +292,11 @@ export default function Home() {
             </div>
             <div className="flex justify-center items-center order-1 lg:order-2 animate__fadeInRight animate__animated mt-8 lg:mt-0">
               <Image
-                src="/img/home1.png"
+                src={currentTheme === 'dark' ? "/img/home-dark.png" : "/img/home-light.png"}
                 alt="imgHome"
                 width={700}
                 height={600}
-                className="w-96 h-96 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain drop-shadow-[0_0_60px_rgba(128,0,255,0.5)]"
+                className="w-96 h-96 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain drop-shadow-[0_0_60px_rgba(220,38,38,0.5)] transition-all duration-100 ease-in-out"
               />
             </div>
           </div>
@@ -316,21 +308,21 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 text-center my-16">
               <div data-aos="fade-right">
-                <h3 className="text-purple-500 text-2xl md:text-3xl lg:text-4xl font-medium mb-4" >Past</h3>
+                <h3 className="text-red-500 text-2xl md:text-3xl lg:text-4xl font-medium mb-4" >Past</h3>
                 <p className="leading-relaxed text-sm md:text-lg lg:text-xl">
                   Started my journey in programming during middle school, learning basic HTML and CSS. Developed passion for creating digital experiences and solving problems through code.
                 </p>
               </div>
 
               <div data-aos="fade-up">
-                <h3 className="text-purple-500 text-2xl md:text-3xl lg:text-4xl font-medium mb-4">Present</h3>
+                <h3 className="text-red-500 text-2xl md:text-3xl lg:text-4xl font-medium mb-4">Present</h3>
                 <p className="leading-relaxed text-sm md:text-lg lg:text-xl">
                   Currently, I am a software engineering student at SMKN 1 Denpasar majoring in Software Engineering. I&#39;m currently learning JavaScript, Laravel, React, and UI/UX design using tools like Figma.
                 </p>
               </div>
 
               <div data-aos="fade-left">
-                <h3 className="text-purple-500 text-2xl md:text-3xl lg:text-4xl font-medium mb-4">Future</h3>
+                <h3 className="text-red-500 text-2xl md:text-3xl lg:text-4xl font-medium mb-4">Future</h3>
                 <p className="leading-relaxed text-sm md:text-lg lg:text-xl">
                   Aspiring to become a full-stack developer, planning to master modern frameworks like Node.js and React. Looking forward to contributing to innovative projects and continuous learning.
                 </p>
@@ -338,10 +330,10 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-8 lg:gap-24">
-              <div className="text-center text-lg md:text-xl lg:text-[1.5rem] rounded-lg border border-purple-500 bg-purple-500/10 px-6 py-4 leading-tight" data-aos="fade-up-right">
+              <div className="text-center text-lg md:text-xl lg:text-[1.5rem] rounded-lg border border-red-500 bg-red-500/10 px-6 py-4 leading-tight" data-aos="fade-up-right">
                 2 Years <br />Experience
               </div>
-              <div className="text-center text-lg md:text-xl lg:text-[1.5rem] rounded-lg border border-purple-500 bg-purple-500/10 px-6 py-4 leading-tight" data-aos="fade-up-left">
+              <div className="text-center text-lg md:text-xl lg:text-[1.5rem] rounded-lg border border-red-500 bg-red-500/10 px-6 py-4 leading-tight" data-aos="fade-up-left">
                 4+ Projects <br />Completed
               </div>
             </div>
@@ -358,11 +350,13 @@ export default function Home() {
                 { title: "HTML5", icon: "https://img.icons8.com/?size=100&id=20909&format=png&color=ffffff" },
                 { title: "CSS", icon: "https://img.icons8.com/?size=100&id=21278&format=png&color=ffffff" },
                 { title: "JavaScript", icon: "https://img.icons8.com/?size=100&id=108784&format=png&color=ffffff" },
-                { title: "Tailwind CSS", icon: "https://img.icons8.com/?size=100&id=x7XMNGh2vdqA&format=png&color=ffffff" },
-                { title: "Next.js", icon: "https://img.icons8.com/?size=100&id=MWiBjkuHeMVq&format=png&color=ffffff" },
                 { title: "TypeScript", icon: "https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=ffffff" },
+                { title: "React", icon: "https://img.icons8.com/?size=100&id=123603&format=png&color=ffffff" },
+                { title: "Tailwind CSS", icon: "https://img.icons8.com/?size=100&id=x7XMNGh2vdqA&format=png&color=ffffff" },
+                { title: "Bootstrap", icon: "https://img.icons8.com/?size=100&id=84710&format=png&color=ffffff" },
+                { title: "Next.js", icon: "https://img.icons8.com/?size=100&id=MWiBjkuHeMVq&format=png&color=ffffff" },
               ].map((skill, i) => (
-                <div key={i} className="cursor-default flex flex-col sm:flex-row items-center border border-purple-500 bg-purple-500/10 backdrop-blur-sm rounded-lg p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300">
+                <div key={i} className="cursor-default flex flex-col sm:flex-row items-center border border-red-500 bg-red-500/10 backdrop-blur-sm rounded-lg p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all duration-300">
                   <Image className="mb-2 sm:mb-0 sm:ml-2" src={skill.icon} alt={skill.title} width={30} height={30} />
                   <h3 className="text-sm md:text-lg lg:text-xl sm:mx-4 text-center">{skill.title}</h3>
                 </div>
@@ -377,7 +371,7 @@ export default function Home() {
                 { title: "Laravel", icon: "https://img.icons8.com/?size=100&id=lRjcvhvtR81o&format=png&color=ffffff" },
                 { title: "MySQL", icon: "https://img.icons8.com/?size=100&id=UFXRpPFebwa2&format=png&color=ffffff" },
               ].map((skill, i) => (
-                <div key={i} className="cursor-default flex flex-col sm:flex-row items-center border border-purple-500 bg-purple-500/10 backdrop-blur-sm rounded-lg p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300">
+                <div key={i} className="cursor-default flex flex-col sm:flex-row items-center border border-red-500 bg-red-500/10 backdrop-blur-sm rounded-lg p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all duration-300">
                   <Image className="mb-2 sm:mb-0 sm:ml-2" src={skill.icon} alt={skill.title} width={30} height={30} />
                   <h3 className="text-sm md:text-lg lg:text-xl sm:mx-4 text-center">{skill.title}</h3>
                 </div>
@@ -392,8 +386,9 @@ export default function Home() {
                 { title: "VS Code", icon: "https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=ffffff" },
                 { title: "Figma", icon: "https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=ffffff" },
                 { title: "Canva", icon: "https://img.icons8.com/?size=100&id=iWw83PVcBpLw&format=png&color=ffffff" },
+                { title: "Docker", icon: "https://img.icons8.com/?size=100&id=cdYUlRaag9G9&format=png&color=ffffff" },
               ].map((skill, i) => (
-                <div key={i} className="cursor-default flex flex-col sm:flex-row items-center border border-purple-500 bg-purple-500/10 backdrop-blur-sm rounded-lg p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(255,0,255,0.5)] transition-all duration-300">
+                <div key={i} className="cursor-default flex flex-col sm:flex-row items-center border border-red-500 bg-red-500/10 backdrop-blur-sm rounded-lg p-3 lg:p-4 hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all duration-300">
                   <Image className="mb-2 sm:mb-0 sm:ml-2" src={skill.icon} alt={skill.title} width={30} height={30} />
                   <h3 className="text-sm md:text-lg lg:text-xl sm:mx-4 text-center">{skill.title}</h3>
                 </div>
@@ -438,7 +433,7 @@ export default function Home() {
                     alt={proj.title} 
                     width={600} 
                     height={400} 
-                    className="w-full max-w-2xl border-2 rounded-xl border-purple-500 object-cover" 
+                    className="w-full max-w-2xl border-2 rounded-xl border-red-500 object-cover" 
                   />
                 </div>
                 <div className="flex flex-col justify-center w-full lg:w-1/2 gap-4 text-center lg:text-left" data-aos="fade-left">
@@ -446,7 +441,7 @@ export default function Home() {
                   <p className="text-sm md:text-lg lg:text-xl">{proj.desc}</p>
                   <div>
                     <a href={proj.link} target="_blank" rel="noopener noreferrer">
-                      <button className="cursor-pointer rounded my-2 py-3 px-6 border border-purple-500 hover:bg-purple-950/30 transition text-sm md:text-base">
+                      <button className="cursor-pointer rounded my-2 py-3 px-6 border border-red-500 hover:bg-red-950/30 transition text-sm md:text-base">
                         Go to project
                       </button>
                     </a>
@@ -514,7 +509,7 @@ export default function Home() {
                       href="https://github.com/Kurueil"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm md:text-base text-purple-400 hover:text-purple-300 transition"
+                      className="text-sm md:text-base text-red-500 hover:text-red-400 transition"
                     >
                       Kurueil
                     </a>
@@ -522,7 +517,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex-1 border border-purple-500 p-6 lg:p-8 rounded-lg shadow-lg bg-purple-500/5" data-aos="fade-left">
+              <div className="flex-1 border border-red-500 p-6 lg:p-8 rounded-lg shadow-lg bg-red-500/5" data-aos="fade-left">
                 <h2 className="text-xl md:text-2xl font-medium mb-6">Send Message</h2>
                 <div className="flex flex-col gap-4">
                   <input
@@ -531,7 +526,7 @@ export default function Home() {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     placeholder="Full Name"
-                    className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-purple-500 transition text-sm md:text-base"
+                    className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-red-500 transition text-sm md:text-base"
                   />
                   <textarea
                     name="message"
@@ -539,13 +534,13 @@ export default function Home() {
                     onChange={handleInputChange}
                     placeholder="Type your Message..."
                     rows={4}
-                    className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-purple-500 transition resize-none text-sm md:text-base"
+                    className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-red-500 transition resize-none text-sm md:text-base"
                   ></textarea>
                   
                   <button 
                     onClick={handleSendMessage}
                     type="button"
-                    className="text-center border border-purple-700 hover:bg-purple-950/30 font-medium py-3 mt-4 rounded transition text-sm md:text-base cursor-pointer"
+                    className="text-center border border-red-600 hover:bg-red-950/30 font-medium py-3 mt-4 rounded transition text-sm md:text-base cursor-pointer"
                   >
                     Send Message
                   </button>
@@ -556,7 +551,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-purple-500/30 py-6 mt-12">
+      <footer className="border-t border-red-500/30 py-6 mt-12">
         <div className="w-[90%] mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs md:text-sm">
             <p>Design and Develop by Kurueil</p>

@@ -15,25 +15,25 @@ p, li, a, button, input, textarea {
 }
 
 [data-theme="light"] {
-  --background: #ffffff;
+  --background: #fafafa;
   --foreground: #000000;
 }
 
 [data-theme="dark"] {
-  --background: #0c001b;
-  --foreground: #ffffff;
+  --background: #000000;
+  --foreground: #fafafa;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --background: #0c001b;
-    --foreground: #ffffff;
+    --background: #000000;
+    --foreground: #fafafa;
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --background: #ffffff;
+    --background: #fafafa;
     --foreground: #000000;
   }
 }
