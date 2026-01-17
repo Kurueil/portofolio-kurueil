@@ -12,6 +12,7 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentTheme, setCurrentTheme] = useState<string>('');
+  const [formData, setFormData] = useState({ fullName: '', message: '' });
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -84,6 +85,21 @@ export default function Home() {
     return () => observer.disconnect();
   }, [loading]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSendMessage = () => {
+    const subject = encodeURIComponent(`Message from ${formData.fullName}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.fullName}\n\n` +
+      `Message:\n${formData.message}`
+    );
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=anggapradita610@gmail.com&su=${subject}&body=${body}`;
+    window.open(gmailUrl, '_blank');
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -96,7 +112,7 @@ export default function Home() {
             <a href="#home" className="relative group text-xl md:text-2xl lg:text-3xl">
               <span className="relative z-10">
                 <TypeAnimation
-                  sequence={["`Kuuruel",5000,"`Angga P",5000]}
+                  sequence={["`Kurueil",5000,"`Angga P",5000]}
                   wrapper="span"
                   speed={10}
                   className="text-purple-500 font-medium"
@@ -450,7 +466,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h2 className="text-lg md:text-xl font-medium">Email</h2>
-                    <p className="text-sm md:text-base ">anjayp271@gmail.com</p>
+                    <p className="text-sm md:text-base ">anggapradita610@gmail.com</p>
                   </div>
                 </div>
 
@@ -467,12 +483,12 @@ export default function Home() {
                   <div>
                     <h2 className="text-lg md:text-xl font-medium">GitHub</h2>
                     <a
-                      href="https://github.com/Kuuruel"
+                      href="https://github.com/Kurueil"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm md:text-base text-purple-400 hover:text-purple-300 transition"
                     >
-                      Kuuruel
+                      Kurueil
                     </a>
                   </div>
                 </div>
@@ -480,35 +496,32 @@ export default function Home() {
 
               <div className="flex-1 border border-purple-500 p-6 lg:p-8 rounded-lg shadow-lg bg-purple-500/5" data-aos="fade-left">
                 <h2 className="text-xl md:text-2xl font-medium mb-6">Send Message</h2>
-                <form className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4">
                   <input
                     type="text"
                     name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
                     placeholder="Full Name"
                     className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-purple-500 transition text-sm md:text-base"
-                    required
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-purple-500 transition text-sm md:text-base"
-                    required
                   />
                   <textarea
                     name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     placeholder="Type your Message..."
                     rows={4}
                     className="bg-transparent placeholder-gray-500 border-b border-gray-400 py-3 outline-none focus:border-purple-500 transition resize-none text-sm md:text-base"
-                    required
                   ></textarea>
+                  
                   <button 
-                    type="submit"
-                    className="border border-purple-700 hover:bg-purple-950/30 font-medium py-3 mt-4 rounded transition text-sm md:text-base cursor-pointer"
+                    onClick={handleSendMessage}
+                    type="button"
+                    className="text-center border border-purple-700 hover:bg-purple-950/30 font-medium py-3 mt-4 rounded transition text-sm md:text-base cursor-pointer"
                   >
                     Send Message
                   </button>
-                </form>
+                </div>
               </div>
             </div>
           </div>
@@ -518,8 +531,8 @@ export default function Home() {
       <footer className="border-t border-purple-500/30 py-6 mt-12">
         <div className="w-[90%] mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs md:text-sm">
-            <p>Design and Develop by Kuuruel</p>
-            <p>@Copyright - 2024</p>
+            <p>Design and Develop by Kurueil</p>
+            <p>@Copyright - {new Date().getFullYear()}</p>
           </div>
         </div>
       </footer>

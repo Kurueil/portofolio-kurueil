@@ -20,7 +20,7 @@ const quicksand = Quicksand({
 
 
 export const metadata: Metadata = {
-  title: "Portofolio Kuuruel",
+  title: "Portofolio Kurueil",
   description: "yea",
 };
 
