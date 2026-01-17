@@ -15,15 +15,24 @@ export default function Home() {
   const [formData, setFormData] = useState({ fullName: '', message: '' });
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    try {
+      AOS.init({ duration: 1000, once: true, disable: 'mobile' });
+    } catch (error) {
+      console.error('Failed to initialize AOS:', error);
+    }
 
     if (typeof window !== 'undefined') {
-      const storedTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const theme = storedTheme || (prefersDark ? "dark" : "light");
-      
-      document.documentElement.setAttribute("data-theme", theme);
-      setCurrentTheme(theme);
+      try {
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = storedTheme || (prefersDark ? "dark" : "light");
+        
+        document.documentElement.setAttribute("data-theme", theme);
+        setCurrentTheme(theme);
+      } catch (error) {
+        console.error('Failed to initialize theme:', error);
+        setCurrentTheme('light');
+      }
     }
   }, []);
 
@@ -91,13 +100,29 @@ export default function Home() {
   };
 
   const handleSendMessage = () => {
-    const subject = encodeURIComponent(`Message from ${formData.fullName}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.fullName}\n\n` +
-      `Message:\n${formData.message}`
-    );
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=anggapradita610@gmail.com&su=${subject}&body=${body}`;
-    window.open(gmailUrl, '_blank');
+    if (!formData.fullName.trim()) {
+      alert('Please enter your name');
+      return;
+    }
+    if (!formData.message.trim()) {
+      alert('Please enter a message');
+      return;
+    }
+
+    try {
+      const subject = encodeURIComponent(`Message from ${formData.fullName}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.fullName}\n\n` +
+        `Message:\n${formData.message}`
+      );
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=anggapradita610@gmail.com&su=${subject}&body=${body}`;
+      window.open(gmailUrl, '_blank');
+      
+      setFormData({ fullName: '', message: '' });
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      alert('Failed to open email client. Please try again.');
+    }
   };
 
   if (loading) {
@@ -112,7 +137,7 @@ export default function Home() {
             <a href="#home" className="relative group text-xl md:text-2xl lg:text-3xl">
               <span className="relative z-10">
                 <TypeAnimation
-                  sequence={["`Kurueil",5000,"`Angga P",5000]}
+                  sequence={["Kurueil",5000,"AnggaP",5000]}
                   wrapper="span"
                   speed={10}
                   className="text-purple-500 font-medium"
@@ -127,6 +152,9 @@ export default function Home() {
           <button
             className="md:hidden text-white text-2xl"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMenuOpen ? '✕' : '☰'}
           </button>
@@ -181,7 +209,7 @@ export default function Home() {
           </nav>
 
           {isMenuOpen && (
-            <nav className="md:hidden absolute top-[75px] left-0 w-full bg-black/10">
+            <nav id="mobile-menu" className="md:hidden absolute top-[75px] left-0 w-full bg-black/10 backdrop-blur-md" role="navigation" aria-label="Mobile navigation">
               <ul className="flex flex-col list-none gap-4 p-4">
                 <li>
                   <a href="#about" className="block py-2 text-lg" onClick={() => setIsMenuOpen(false)}>
