@@ -20,7 +20,7 @@ const quicksand = Quicksand({
 
 
 export const metadata: Metadata = {
-  title: "Angga Pradita - Web Developer & UI/UX Designer | Portofolio Kurueil",
+  title: "Angga Pradita - Web Developer & UI/UX Designer | Portfolio Kurueil",
   description: "Portfolio website of Angga Pradita (Kurueil), a passionate Software Engineering student specializing in web development, UI/UX design, and modern technologies like React, Next.js, and Laravel.",
   keywords: ["Angga Pradita", "Kurueil", "Web Developer", "UI/UX Designer", "Portfolio", "Next.js", "React", "TypeScript", "Tailwind CSS", "Software Engineering"],
   authors: [{ name: "Angga Pradita", url: "https://github.com/Kurueil" }],
@@ -29,10 +29,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portofolio-kurueil.vercel.app",
+    url: "https://portfolio-kurueil.vercel.app",
     title: "Angga Pradita - Web Developer & UI/UX Designer",
     description: "Portfolio showcasing web development projects, UI/UX designs, and technical skills in modern web technologies.",
-    siteName: "Portofolio Kurueil",
+    siteName: "Portfolio Kurueil",
   },
   twitter: {
     card: "summary_large_image",

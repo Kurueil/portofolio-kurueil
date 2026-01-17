@@ -109,27 +109,54 @@ export default function Home() {
       title: "Web Profile Karbiter Group",
       desc: "My independent project is to create information about our group. This website only uses HTML, CSS, and JS.",
       link: "https://karbiterr.netlify.app/",
-      img: "/img/Karbiter.png"
+      img: "/img/project1-Web Karbiter.png"
     },
     {
       title: "Web Profile DKV",
       desc: "Project that I made with my group to create various information about the DKV department at our school.",
       link: "https://web-profil-dkv-2.netlify.app/",
-      img: "/img/Profil dkv.png"
+      img: "/img/project2-Web Profile DKV.png"
     },
     {
       title: "Design Web Portfolio",
       desc: "First design of my Portfolio Web",
       link: "https://www.figma.com/design/2xSA3samaMN3oAE2Z3PvVw/Desain-Web-Angga-07?node-id=0-1",
-      img: "/img/Figma.png"
+      img: "/img/project3-Design Portfolio.png"
     },
     {
       title: "Design Web BlueBook",
       desc: "Web design I made for school purposes",
       link: "https://www.figma.com/design/jfxy06xXxPR7H1GQvmmNjO/Untitled?node-id=0-1",
-      img: "/img/bluebook.png"
-    }
+      img: "/img/project4-Design BlueBook.png"
+    },
+    {
+      title: "Web Rentbyte",
+      desc: "Initial web development challenge during internship to demonstrate technical skills and coding proficiency",
+      link: "https://github.com/Kurueil/rentbytefix",
+      img: "/img/project5-Web Rentbyte.png"
+    },
+    {
+      title: "Cap Bali (Internship Contribution)",
+      desc: "Contributed to the development by implementing member point system features integrated with payment processing",
+      link: "https://catalog.capbali.com/",
+      img: "/img/project6-Web Cap Bali.png"
+    },
+    {
+      title: "Besakih VMS (Internship Contribution)",
+      desc: "Developed checkpoint feature with fingerprint authentication for enhanced security and visitor tracking",
+      link: "https://besakih-vms.fgi.co.id/",
+      img: "/img/project7-Web Besakih VMS.png"
+    },
   ];
+
+    /*
+    {
+      title: "",
+      desc: "",
+      link: "",
+      img: "/img/.png"
+    },
+    */
 
   const goToPrevProject = useCallback(() => {
     setActiveProjectIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
