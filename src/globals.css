@@ -60,3 +60,7 @@ body {
 .animate-circle-blur {
   animation: circle-blur 1.8s infinite ease-in-out;
 }
+
+.perspective-1000 {
+  perspective: 1000px;
+}

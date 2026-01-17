@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { TypeAnimation } from 'react-type-animation';
 import Loading from "@/components/loading";
@@ -13,6 +13,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [currentTheme, setCurrentTheme] = useState<string>('');
   const [formData, setFormData] = useState({ fullName: '', message: '' });
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   useEffect(() => {
     try {
@@ -28,6 +31,7 @@ export default function Home() {
         const theme = storedTheme || (prefersDark ? "dark" : "light");
         
         document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.classList.toggle('dark', theme === 'dark');
         setCurrentTheme(theme);
       } catch (error) {
         console.error('Failed to initialize theme:', error);
@@ -40,6 +44,7 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const newTheme = currentTheme === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", newTheme);
+      document.documentElement.classList.toggle('dark', newTheme === 'dark');
       localStorage.setItem("theme", newTheme);
       setCurrentTheme(newTheme);
     }
@@ -99,6 +104,86 @@ export default function Home() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const projects = [
+    {
+      title: "Web Profile Karbiter Group",
+      desc: "My independent project is to create information about our group. This website only uses HTML, CSS, and JS.",
+      link: "https://karbiterr.netlify.app/",
+      img: "/img/Karbiter.png"
+    },
+    {
+      title: "Web Profile DKV",
+      desc: "Project that I made with my group to create various information about the DKV department at our school.",
+      link: "https://web-profil-dkv-2.netlify.app/",
+      img: "/img/Profil dkv.png"
+    },
+    {
+      title: "Design Web Portfolio",
+      desc: "First design of my Portfolio Web",
+      link: "https://www.figma.com/design/2xSA3samaMN3oAE2Z3PvVw/Desain-Web-Angga-07?node-id=0-1",
+      img: "/img/Figma.png"
+    },
+    {
+      title: "Design Web BlueBook",
+      desc: "Web design I made for school purposes",
+      link: "https://www.figma.com/design/jfxy06xXxPR7H1GQvmmNjO/Untitled?node-id=0-1",
+      img: "/img/bluebook.png"
+    }
+  ];
+
+  const goToPrevProject = useCallback(() => {
+    setActiveProjectIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  }, [projects.length]);
+
+  const goToNextProject = useCallback(() => {
+    setActiveProjectIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  }, [projects.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const projectSection = document.getElementById('projects');
+      if (!projectSection) return;
+      
+      const rect = projectSection.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isInView) {
+        if (e.key === 'ArrowLeft') {
+          goToPrevProject();
+        } else if (e.key === 'ArrowRight') {
+          goToNextProject();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [goToPrevProject, goToNextProject]);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      goToNextProject();
+    } else if (isRightSwipe) {
+      goToPrevProject();
+    }
+  };
+
   const handleSendMessage = () => {
     if (!formData.fullName.trim()) {
       alert('Please enter your name');
@@ -150,7 +235,7 @@ export default function Home() {
           </div>
 
           <button
-            className="md:hidden text-white text-2xl"
+            className="md:hidden text-2xl cursor-pointer"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
@@ -195,12 +280,12 @@ export default function Home() {
                   <button
                     onClick={toggleTheme}
                     className="cursor-pointer group relative flex items-center justify-center w-10 h-10 rounded-full border border-red-500 transition-all duration-300
-                              dark:bg-red-950/10 hover:shadow-[0_0_10px_rgba(220,38,38,0.5)] text-red-700 dark:text-white"
+                              dark:bg-red-950/10 hover:shadow-[0_0_10px_rgba(220,38,38,0.5)] text-black dark:text-white"
                   >
                     {currentTheme === 'dark' ? (
-                      <FiSun size={20} className="transition-transform duration-300 group-hover:scale-110" />
-                    ) : (
                       <FiMoon size={20} className="transition-transform duration-300 group-hover:scale-110" />
+                    ) : (
+                      <FiSun size={20} className="transition-transform duration-300 group-hover:scale-110" />
                     )}
                     <span className="sr-only">Toggle Theme</span>
                   </button>
@@ -209,8 +294,8 @@ export default function Home() {
           </nav>
 
           {isMenuOpen && (
-            <nav id="mobile-menu" className="md:hidden absolute top-[75px] left-0 w-full bg-black/10 backdrop-blur-md" role="navigation" aria-label="Mobile navigation">
-              <ul className="flex flex-col list-none gap-4 p-4">
+            <nav id="mobile-menu" className="md:hidden absolute top-[75px] left-0 w-full" role="navigation" aria-label="Mobile navigation">
+              <ul className="flex flex-col list-none gap-4 p-4 bg-black/10 backdrop-blur-[2px]">
                 <li>
                   <a href="#about" className="block py-2 text-lg" onClick={() => setIsMenuOpen(false)}>
                     About
@@ -240,12 +325,12 @@ export default function Home() {
                   <button
                     onClick={toggleTheme}
                     className="cursor-pointer group relative flex items-center justify-center w-10 h-10 rounded-full border border-red-500 transition-all duration-300
-                              dark:bg-red-950/10 hover:shadow-[0_0_10px_rgba(220,38,38,0.5)] text-red-700 dark:text-white"
+                              dark:bg-red-950/10 hover:shadow-[0_0_10px_rgba(220,38,38,0.5)] text-black dark:text-white"
                   >
                     {currentTheme === 'dark' ? (
-                      <FiSun size={20} className="transition-transform duration-300 group-hover:scale-110" />
-                    ) : (
                       <FiMoon size={20} className="transition-transform duration-300 group-hover:scale-110" />
+                    ) : (
+                      <FiSun size={20} className="transition-transform duration-300 group-hover:scale-110" />
                     )}
                     <span className="sr-only">Toggle Theme</span>
                   </button>
@@ -260,16 +345,16 @@ export default function Home() {
         <section id="home" className="flex flex-row items-center min-h-screen px-4">
           <div className="w-[90%] mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="flex flex-col text-center lg:text-left order-2 lg:order-1 animate__animated animate__fadeInLeft">
-              <h1 className="text-lg md:text-xl lg:text-2xl text-gray-400">Hello!, I am</h1>
+              <h1 className="text-lg md:text-xl lg:text-2xl text-gray-400">Hello! I am</h1>
               <h1 className="text-2xl md:text-3xl lg:text-4xl my-1">Angga Pradita</h1>
               <div className="text-2xl md:text-4xl lg:text-6xl font-bold my-2 bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">
                 <TypeAnimation
                   sequence={[
-                    "I'm Web Developer",
+                    "I'm a Web Developer",
                     1000,
-                    "I'm UI/UX Designer",
+                    "I'm a UI/UX Designer",
                     1000,
-                    "I'm Kurumi Husband",
+                    "I'm Kurumi's Husband",
                     1000,
                   ]}
                   wrapper="span"
@@ -296,7 +381,7 @@ export default function Home() {
                 alt="imgHome"
                 width={700}
                 height={600}
-                className="w-96 h-96 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain drop-shadow-[0_0_60px_rgba(220,38,38,0.5)] transition-all duration-100 ease-in-out"
+                className="w-96 h-96 md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] object-contain drop-shadow-[0_0_60px_rgba(220,38,38,0.5)] transition-all duration-900 ease-in-out"
               />
             </div>
           </div>
@@ -397,65 +482,152 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="projects" className="flex flex-col items-center justify-center min-h-screen px-4 py-16">
+        <section id="projects" className="flex flex-col items-center justify-center min-h-screen px-4 py-16 overflow-hidden">
           <h1 className="text-3xl md:text-5xl lg:text-6xl my-12" data-aos="zoom-in-down">Projects</h1>
-          <div className="w-[90%] mx-auto">
-            {[
-              {
-                title: "Web Profile Karbiter Group",
-                desc: "My independent project is to create information about our group. This website only uses HTML, CSS, and JS.",
-                link: "https://karbiterr.netlify.app/",
-                img: "/img/Karbiter.png"
-              },
-              {
-                title: "Web Profile DKV",
-                desc: "Project that I made with my group to create various information about the DKV department at our school.",
-                link: "https://web-profil-dkv-2.netlify.app/",
-                img: "/img/Profil dkv.png"
-              },
-              {
-                title: "Design Web Portfolio",
-                desc: "First design of my Portfolio Web",
-                link: "https://www.figma.com/design/2xSA3samaMN3oAE2Z3PvVw/Desain-Web-Angga-07?node-id=0-1",
-                img: "/img/Figma.png"
-              },
-              {
-                title: "Design Web BlueBook",
-                desc: "Web design I made for school purposes",
-                link: "https://www.figma.com/design/jfxy06xXxPR7H1GQvmmNjO/Untitled?node-id=0-1",
-                img: "/img/bluebook.png"
-              }
-            ].map((proj, idx) => (
-              <div key={idx} className="flex flex-col lg:flex-row items-center min-h-[70vh] gap-8 lg:gap-12">
-                <div className="flex flex-col items-center justify-center w-full lg:w-1/2" data-aos="fade-right">
-                  <Image 
-                    src={proj.img} 
-                    alt={proj.title} 
-                    width={600} 
-                    height={400} 
-                    className="w-full max-w-2xl border-2 rounded-xl border-red-500 object-cover" 
-                  />
-                </div>
-                <div className="flex flex-col justify-center w-full lg:w-1/2 gap-4 text-center lg:text-left" data-aos="fade-left">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium">{proj.title}</h2>
-                  <p className="text-sm md:text-lg lg:text-xl">{proj.desc}</p>
-                  <div>
-                    <a href={proj.link} target="_blank" rel="noopener noreferrer">
-                      <button className="cursor-pointer rounded my-2 py-3 px-6 border border-red-500 hover:bg-red-950/30 transition text-sm md:text-base">
-                        Go to project
-                      </button>
-                    </a>
+          
+          <div 
+            className="relative w-full max-w-7xl mx-auto h-[450px] md:h-[500px] flex items-center justify-center"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <button
+              onClick={goToPrevProject}
+              className="hidden md:flex absolute left-8 z-30 border border-red-500 bg-red-500/20 hover:bg-red-500/40 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer backdrop-blur-sm items-center justify-center"
+              aria-label="Previous project"
+              data-aos="fade-right"
+              data-aos-delay="300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <div className="relative w-full h-full flex items-center justify-center" style={{ perspective: '1200px' }} data-aos="fade-up" data-aos-delay="200">
+              {projects.map((proj, idx) => {
+                let offset = idx - activeProjectIndex;
+                const totalProjects = projects.length;
+                
+                if (offset > totalProjects / 2) offset -= totalProjects;
+                if (offset < -totalProjects / 2) offset += totalProjects;
+                
+                const isActive = offset === 0;
+                const absOffset = Math.abs(offset);
+                
+                const isVisible = absOffset <= 1;
+                
+                const translateX = offset * 380;
+                const translateZ = isActive ? 50 : -150;
+                const rotateY = offset * -25;
+                const scale = isActive ? 1 : 0.75;
+                const opacity = isActive ? 1 : 0.5;
+                
+                return (
+                  <div
+                    key={idx}
+                    className={`absolute transition-all duration-300 ease-out
+                      ${!isVisible ? 'opacity-0 pointer-events-none' : ''}
+                      ${isActive ? 'cursor-default' : 'cursor-pointer'}`}
+                    style={{
+                      transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+                      opacity: isVisible ? opacity : 0,
+                      zIndex: isActive ? 20 : 10 - absOffset,
+                      transformStyle: 'preserve-3d',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                    }}
+                    onClick={() => !isActive && setActiveProjectIndex(idx)}
+                  >
+                    <div 
+                      className={`w-[280px] md:w-[400px] lg:w-[450px] h-[380px] md:h-[420px] border border-red-500 rounded-md overflow-hidden shadow-2xl transition-[transform,box-shadow,background-color] duration-300
+                        ${isActive 
+                          ? 'bg-red-500/20 shadow-[0_0_40px_rgba(220,38,38,0.4)]' 
+                          : 'bg-red-500/15 hover:bg-red-500/20'
+                        }`}
+                      style={{
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                      }}
+                    >
+                      <div className="relative h-[200px] md:h-[220px] overflow-hidden group">
+                        <Image 
+                          src={proj.img} 
+                          alt={proj.title} 
+                          width={500} 
+                          height={250} 
+                          className="w-full h-full object-cover" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
+                      </div>
+                      
+                      <div className="p-4 md:p-5 flex flex-col gap-2">
+                        <h2 className="text-base md:text-lg font-bold line-clamp-1 transition-colors duration-100">{proj.title}</h2>
+                        <p className="text-xs md:text-sm opacity-70 line-clamp-2 leading-relaxed transition-colors duration-100">{proj.desc}</p>
+                        
+                        <a 
+                          href={proj.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          onClick={(e) => e.stopPropagation()}
+                          className="mt-auto"
+                        >
+                          <button className="w-full mt-2 border border-red-500 hover:bg-red-500/20 hover:border-red-400 font-medium py-2 px-4 rounded-lg transition-all duration-100 text-sm md:text-base flex items-center justify-center gap-2 group/btn cursor-pointer">
+                            VIEW PROJECT
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={goToNextProject}
+              className="hidden md:flex absolute right-8 z-30 border border-red-500 bg-red-500/20 hover:bg-red-500/40 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer backdrop-blur-sm items-center justify-center"
+              aria-label="Next project"
+              data-aos="fade-left"
+              data-aos-delay="300"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex items-center justify-center gap-2 mt-6" data-aos="fade-up">
+            {projects.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveProjectIndex(idx)}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  idx === activeProjectIndex 
+                    ? 'w-8 h-3 bg-red-500' 
+                    : 'w-3 h-3 bg-red-500/30 hover:bg-red-500/50'
+                }`}
+                aria-label={`Go to project ${idx + 1}`}
+              />
             ))}
           </div>
+          
+          <p className="md:hidden text-xs text-gray-500 mt-3 flex items-center gap-2" data-aos="fade-up">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+            Swipe to navigate
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </p>
         </section>
 
         <section id="contact" className="flex flex-col items-center min-h-screen px-4 py-16">
           <div className="w-[90%] mx-auto">
             <h1 className="text-3xl md:text-5xl lg:text-6xl text-center my-12" data-aos="zoom-in-down">Contact</h1>
-            <p className="text-sm md:text-lg text-center  mb-12 max-w-2xl mx-auto" data-aos="zoom-in-down">
+            <p className="text-sm md:text-lg text-center mb-12 max-w-2xl mx-auto" data-aos="zoom-in-down">
               Feel free to reach out to me for any projects, collaborations, or just to say hello. I&#39;m always excited to connect with fellow developers and creators.
             </p>
 
@@ -555,7 +727,7 @@ export default function Home() {
         <div className="w-[90%] mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs md:text-sm">
             <p>Design and Develop by Kurueil</p>
-            <p>@Copyright - {new Date().getFullYear()}</p>
+            <p>© Copyright {new Date().getFullYear()}</p>
           </div>
         </div>
       </footer>
