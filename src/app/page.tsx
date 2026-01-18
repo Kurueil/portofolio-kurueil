@@ -298,7 +298,7 @@ export default function Home() {
                 </a>
               </li>
               <li>
-                <a href="https://drive.google.com/uc?export=download&id=1ofqczf9pB7TsG_BW7PvSp7HstdH20hBk" className="relative group text-sm lg:text-[1.3rem]">
+                <a href="https://drive.google.com/uc?export=download&id=1Bu60Lw6LEud563A1F58l9SCz4GDVG7no" className="relative group text-sm lg:text-[1.3rem]">
                   <span className="relative z-10">CV</span>
                   <span className="absolute left-0 top-1/2 w-full h-2 bg-red-500 opacity-0 blur-md rounded group-hover:opacity-100 transition-all duration-300 -translate-y-1/2"></span>
                 </a>
@@ -344,7 +344,7 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
-                  <a href="https://drive.google.com/uc?export=download&id=1ofqczf9pB7TsG_BW7PvSp7HstdH20hBk" className="block py-2 text-lg">
+                  <a href="https://drive.google.com/uc?export=download&id=1Bu60Lw6LEud563A1F58l9SCz4GDVG7no" className="block py-2 text-lg">
                     CV
                   </a>
                 </li>
@@ -395,7 +395,7 @@ export default function Home() {
                 I am currently studying as a student in the Software Engineering (RPL) department at SMK Negeri 1 Denpasar, Bali. While focusing on web development, I&#39;m also learning modern technologies like React, and actively building projects to improve my skills.
               </p>
               <a
-                href="https://drive.google.com/uc?export=download&id=1ofqczf9pB7TsG_BW7PvSp7HstdH20hBk"
+                href="https://drive.google.com/uc?export=download&id=1Bu60Lw6LEud563A1F58l9SCz4GDVG7no"
                 className="self-center lg:self-start border border-red-600 rounded px-6 py-3 hover:bg-red-950/20 transition mt-4 text-lg md:text-xl cursor-pointer inline-block text-center"
               >
                 Get my CV
